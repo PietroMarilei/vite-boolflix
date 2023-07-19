@@ -9,7 +9,7 @@ export default {
     }
   },
   methods: {
-     searchFunction() {
+     searchFunctionFilm() {
       axios
         .get("https://api.themoviedb.org/3/search/movie?api_key=91c455c07b1eb6c90d8fd768159a39c3", {
           params: {
@@ -18,10 +18,26 @@ export default {
         })
         .then(response => {
           store.filmArr = response.data.results;
-          console.log( this.store.filmArr);
+          //console.log( this.store.filmArr);
+
+        })
+        
+    },
+    searchFunctionTv() {
+      axios
+        .get("https://api.themoviedb.org/3/search/tv?api_key=91c455c07b1eb6c90d8fd768159a39c3", {
+          params: {
+            query: this.queryInput,
+          }
+        })
+        .then(response => {
+          store.tvSeriesArr = response.data.results;
+
+          console.log('tv series result' , this.store.tvSeriesArr);
 
         })
     }
+
   },
 }
 </script>
@@ -29,7 +45,7 @@ export default {
 <template>
     
    <header>
-    <form @submit.prevent="searchFunction()" action="">
+    <form @submit.prevent="searchFunctionFilm(); searchFunctionTv()" action="">
       <input v-model="queryInput" type="text">
       <button>submit</button>
     </form>
