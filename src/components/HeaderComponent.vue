@@ -32,7 +32,6 @@ export default {
         })
         .then(response => {
           store.tvSeriesArr = response.data.results;
-
           console.log('tv series result' , this.store.tvSeriesArr);
 
         })
@@ -46,6 +45,7 @@ export default {
 <template>
     
    <header>
+    <h1>Netflix?</h1>
     <form @submit.prevent="searchFunctionFilm(); searchFunctionTv()" action="">
       <input v-model="queryInput" type="text">
       <button>submit</button>

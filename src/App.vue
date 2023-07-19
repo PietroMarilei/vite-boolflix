@@ -33,6 +33,17 @@ export default {
         store.filmArr = response.data.results;
         console.log(this.store.filmArr);
 
+      });
+      axios
+      .get("https://api.themoviedb.org/3/discover/tv?api_key=91c455c07b1eb6c90d8fd768159a39c3", {
+        params: {
+          query: '',
+        }
+      })
+      .then(response => {
+        store.tvSeriesArr = response.data.results;
+        console.log(this.store.tvSeriesArr);
+
       })
   },
 }
