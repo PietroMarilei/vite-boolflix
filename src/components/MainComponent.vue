@@ -33,10 +33,13 @@ export default {
                 <img :src="'https://image.tmdb.org/t/p/w300/'+singleFilm.poster_path" alt="">
               </div>
               <div class="filmDetalis">
-                 {{ singleFilm.title }} {{ singleFilm.original_title }}  
+                 {{ singleFilm.title }} 
+                 <!-- {{ singleFilm.original_title }}   -->
+                 {{ singleFilm.vote_average }}
                  <div class="lang_flag">
                     <!-- lang flag here -->
-                  <img :src="getImagePath(`${singleFilm.original_language}.svg`)" alt="">
+                  <img :src="getImagePath(`${singleFilm.original_language}.svg`)" :alt="singleFilm.original_language">
+
                  </div>
               </div>
            
