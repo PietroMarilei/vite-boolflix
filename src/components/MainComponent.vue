@@ -9,9 +9,13 @@ export default {
     }
   },
   methods: {
-    //  getImgUrl(pic) {
-    //   return require('../assets/img/' + pic)
-    // }
+  //    getImgUrl(pic) {
+  //     return require('../assets/img/' + pic)
+  //   }
+  getImagePath: function (img) {
+      return new URL(`../assets/img/${img}`, import.meta.url).href  
+  }
+    
   },
   
 }
@@ -31,9 +35,8 @@ export default {
               <div class="filmDetalis">
                  {{ singleFilm.title }} {{ singleFilm.original_title }}  
                  <div class="lang_flag">
-                  <!-- ❌📛 not working img patch dynamic -->
-                  <!-- <img :src="getImgUrl('ac.svg')"  alt=""> -->
-                  <!-- <img :src="require(`@/assets/img/${'en'}.svg`)"  alt=""> -->
+                    <!-- lang flag here -->
+                  <img :src="getImagePath(`${singleFilm.original_language}.svg`)" alt="">
                  </div>
               </div>
            
@@ -57,5 +60,13 @@ export default {
      .my_card {
       width: 300px;
       height: 100%;
+
+
+      .lang_flag {
+        img {
+          width:20px;
+          border-radius: 2px;
+        }
+      }
      }
 </style>
