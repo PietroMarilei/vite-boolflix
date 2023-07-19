@@ -18,7 +18,7 @@ export default {
         })
         .then(response => {
           store.filmArr = response.data.results;
-          console.log(this.store.filmArr);
+          console.log( this.store.filmArr);
 
         })
     }
