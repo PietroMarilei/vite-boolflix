@@ -1,20 +1,41 @@
 <script>
+import axios from "axios"
+import{ store }  from '../store'
 export default {
   data() {
     return {
-      greeting: 'Hello World!'
+        queryInput: '',
+        store,
     }
   },
   methods: {
+     searchFunction() {
+      axios
+        .get("https://api.themoviedb.org/3/search/movie?api_key=91c455c07b1eb6c90d8fd768159a39c3", {
+          params: {
+            query: this.queryInput,
+          }
+        })
+        .then(response => {
+          store.filmArr = response.data.results;
+          console.log(this.store.filmArr);
 
+        })
+    }
   },
 }
 </script>
 
 <template>
-    <!-- header template -->
+    
    <header>
-    HEADER
+    <form @submit.prevent="searchFunction()" action="">
+      <input v-model="queryInput" type="text">
+      <button>submit</button>
+    </form>
+
+    
+    
   </header>
 
 </template>

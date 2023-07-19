@@ -1,4 +1,6 @@
 <script>
+import { store } from '../store';
+import axios from "axios"
 export default {
   data() {
     return {
@@ -8,7 +10,7 @@ export default {
     }
   },
   methods: {
-
+   
   },
 }
 </script>
@@ -16,7 +18,17 @@ export default {
 <template>
     <!-- main template -->
     <main>
-    MAIN
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <div v-for="(singleFilm,i) in store.filmArr" :key="i" class="my_card">
+            {{ singleFilm.title }}
+            </div>
+            
+
+          </div>
+        </div>
+      </div>
   </main>
 
 </template>
