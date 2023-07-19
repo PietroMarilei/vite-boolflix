@@ -22,7 +22,7 @@ export default {
         <div class="row">
           <div class="col">
             <div v-for="(singleFilm,i) in store.filmArr" :key="i" class="my_card">
-            {{ singleFilm.title }}
+            {{ singleFilm.title }} {{ singleFilm.original_title }} {{ singleFilm.original_language }} {{ singleFilm.vote_average }}
             </div>
             
 
