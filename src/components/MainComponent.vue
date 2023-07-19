@@ -9,16 +9,13 @@ export default {
     }
   },
   methods: {
-  //    getImgUrl(pic) {
-  //     return require('../assets/img/' + pic)
-  //   }
+  
   getImagePath: function (img) {
       return new URL(`../assets/img/${img}`, import.meta.url).href  
   },
-  voteNormalizer(value) {
+  voteDivider(value) {
     let exitNum = Math.floor((value / 2))
     return exitNum
-
     }
     
     },
@@ -45,7 +42,9 @@ export default {
                    {{ singleFilm.title }} 
                    
                    <!-- {{ singleFilm.vote_average }} -->
-                   <p>{{ voteNormalizer(singleFilm.vote_average) }}</p>
+                   <p>{{ voteDivider(singleFilm.vote_average) }}</p>
+                   
+                   <!-- lang flag down here -->
                    <div class="lang_flag">
                       <!-- lang flag here -->
                     <img :src="getImagePath(`${singleFilm.original_language}.svg`)" :alt="singleFilm.original_language">
@@ -70,7 +69,7 @@ export default {
                 <div class="filmDetalis">
                    {{ singleSerie.name }} 
                    <!-- {{ singleSerie.original_title }}   -->
-                   {{ singleSerie.vote_average }}
+                   <p>{{ voteDivider(singleSerie.vote_average) }}</p>
                    <div class="lang_flag">
                       <!-- lang flag here -->
                     <img :src="getImagePath(`${singleSerie.original_language}.svg`)" :alt="singleSerie.original_language">
