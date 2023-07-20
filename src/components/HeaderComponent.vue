@@ -45,12 +45,19 @@ export default {
 <template>
     
    <header>
-    <h1>
+    <div class="my_left_header">
       <img src="../assets/img/Netflix-logo.png" alt="">
-    </h1>
+      <ul>
+        <li>Film</li>
+        <li>Serie Tv</li>
+        <li>Altre cose</li>
+      </ul>
+    </div>
     <form @submit.prevent="searchFunctionFilm(); searchFunctionTv()" action="">
       <input v-model="queryInput" type="text">
-      <button>submit</button>
+      <button @keydown.enter.prevent="searchFunctionFilm(); searchFunctionTv()">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
     </form>
 
     
@@ -67,9 +74,39 @@ export default {
         justify-content: space-between;
         align-items: center;
 
-        h1 {
+        .my_left_header {
+          display: flex;
+          align-items: center;
+          ul {
+            display: flex;
+            padding: 1rem 2rem;
+            color: aliceblue;
+          }
+          li {
+            padding: 0 1rem;
+            cursor: pointer;
+          }
           img {
             width: 150px;
+          }
+        }
+
+        form {
+          button {
+            all:unset;
+            color: aliceblue;
+            padding: 0 1rem;
+            cursor: pointer;
+            font-size: 20px;
+          }
+          input {
+            all:unset;
+            text-align: start;
+            color: aliceblue;
+            background-color: #3e3e3e;
+            padding: 0.4rem;
+            border-radius: 5px;
+            border: 0.5px solid rgb(106, 72, 72);
           }
         }
     }
