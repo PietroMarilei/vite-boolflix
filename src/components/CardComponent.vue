@@ -2,7 +2,7 @@
 export default {
    data() {
       return {
-      
+         hover:false,
       }
    },
    methods: {
@@ -26,14 +26,14 @@ export default {
 </script>
 
 <template>
-   <div class="filmThumbnail">
+   <div class="filmThumbnail" @mouseover="hover = true" @mouseleave="hover = false">
       <img :src="'https://image.tmdb.org/t/p/w300/' + posterPath" alt="">
    </div>
-   <div class="filmDetalis">
-      {{ mediaTitle }}
-
+   <h4>{{ mediaTitle }}</h4>'
+   '
+   <div v-if="hover==true" class="filmDetalis">
+      
       <p>{{ voteDivider(mediaVote) }}</p>
-
       <!-- lang flag down here -->
       <div class="lang_flag">
          <!-- lang flag here -->
@@ -51,11 +51,21 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-
+@use '../assets/scss/partials/variables.scss' as*;
+      .filmThumbnail:hover {
+         opacity: 50%;
+      }
       .filmThumbnail {
         img {
           width: 200px;
+          border-radius: 5px ;
+          position: relative;
         }
+      }
+
+      .filmDetails {
+         position: absolute;
+         top: 100px;
       }
       .lang_flag {
         img {
@@ -64,7 +74,7 @@ export default {
         }
       }
       .my_rating {
-        color: rgb(228, 228, 228);
+        color: $text_grey;
       }
      
 </style>
