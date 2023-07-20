@@ -1,7 +1,11 @@
 <script>
 import { store } from '../store';
 import axios from "axios"
+import CardComponent from './CardComponent.vue';
 export default {
+  components:{
+    CardComponent,
+  },
   data() {
     return {
       store,
@@ -9,15 +13,7 @@ export default {
     }
   },
   methods: {
-  
-  getImagePath: function (img) {
-      return new URL(`../assets/img/${img}`, import.meta.url).href  
-  },
-  voteDivider(value) {
-    let exitNum = Math.floor((value / 2))
-    return exitNum
-    }
-    
+
     },
   
   computed: {
@@ -35,23 +31,12 @@ export default {
           <div class="col">
 
             <div v-for="(singleFilm, i) in store.filmArr" :key="i" class="my_card">
-                <div class="filmThumbnail">
-                  <img :src="'https://image.tmdb.org/t/p/w300/' + singleFilm.poster_path" alt="">
-                </div>
-                <div class="filmDetalis">
-                   {{ singleFilm.title }} 
-                   
-                   <!-- {{ singleFilm.vote_average }} -->
-                   <p>{{ voteDivider(singleFilm.vote_average) }}</p>
-                   
-                   <!-- lang flag down here -->
-                   <div class="lang_flag">
-                      <!-- lang flag here -->
-                    <img :src="getImagePath(`${singleFilm.original_language}.svg`)" :alt="singleFilm.original_language">
+              <CardComponent 
+                :posterPath="singleFilm.poster_path"
+                :mediaTitle="singleFilm.title "
+                :mediaVote="singleFilm.vote_average" 
+                :mediaLanguage="singleFilm.original_language"/>
 
-                   </div>
-              </div>
-           
               </div>
             
 
@@ -63,20 +48,12 @@ export default {
           <h3>tv series</h3>
             <div class="col">
               <div v-for="(singleSerie, i) in store.tvSeriesArr" :key="i" class="my_card">
-                <div class="filmThumbnail">
-                  <img :src="'https://image.tmdb.org/t/p/w300/' + singleSerie.poster_path" alt="">
-                </div>
-                <div class="filmDetalis">
-                   {{ singleSerie.name }} 
-                   <!-- {{ singleSerie.original_title }}   -->
-                   <p>{{ voteDivider(singleSerie.vote_average) }}</p>
-                   <div class="lang_flag">
-                      <!-- lang flag here -->
-                    <img :src="getImagePath(`${singleSerie.original_language}.svg`)" :alt="singleSerie.original_language">
+                <CardComponent 
+                  :posterPath="singleSerie.poster_path"
+                  :mediaTitle="singleSerie.name"
+                  :mediaVote="singleSerie.vote_average" 
+                  :mediaLanguage="singleSerie.original_language"/>
 
-                   </div>
-              </div>
-           
               </div>
             
 
@@ -90,28 +67,10 @@ export default {
 
 <style lang="scss" scoped>
     .col {
-      display: flex;
-      
+      display: flex;      
       // flex-wrap: wrap;
       overflow-x: auto;
     }
      
-     .my_card {
-      width: 300px;
-      height: 100%;
-      padding: 1rem;
-      .filmThumbnail {
-        img {
-          width: 200px;
-        }
-      }
-
-
-      .lang_flag {
-        img {
-          width:20px;
-          border-radius: 2px;
-        }
-      }
-     }
+     
 </style>
