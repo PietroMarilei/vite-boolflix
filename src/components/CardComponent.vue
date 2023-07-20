@@ -2,11 +2,11 @@
 export default {
    data() {
       return {
-         hover:false,
+
       }
    },
    methods: {
-       getImagePath: function (img) {
+      getImagePath: function (img) {
          return new URL(`../assets/img/${img}`, import.meta.url).href
          // un if che se img è nellárray invece se no restiscuire null e quindi posso usare ??
       },
@@ -26,55 +26,101 @@ export default {
 </script>
 
 <template>
-   <div class="filmThumbnail" @mouseover="hover = true" @mouseleave="hover = false">
-      <img :src="'https://image.tmdb.org/t/p/w300/' + posterPath" alt="">
-   </div>
-   <h4>{{ mediaTitle }}</h4>'
-   '
-   <div v-if="hover==true" class="filmDetalis">
-      
-      <p>{{ voteDivider(mediaVote) }}</p>
-      <!-- lang flag down here -->
-      <div class="lang_flag">
-         <!-- lang flag here -->
-         <img :src="getImagePath(`${mediaLanguage}.svg`) ?? getImagePath('posternotfound.png')" :alt="mediaLanguage">
-         <!-- ❌📛 not working alternative poster -->
+   <div class="filmThumbnail">
+      <!-- <img :src="'https://image.tmdb.org/t/p/w300/' + posterPath ?? getImagePath('posternotfound.png')" alt=""> -->
+      <img id="my_poster" :src="posterPath != null ? 'https://image.tmdb.org/t/p/w300/' + posterPath : getImagePath('posternotfound.png')" alt="">
+      <div class="filmDetails">
 
-      </div>
+         <h4>{{ mediaTitle }}</h4>
+         <div class="lang_flag">
+            <img :src="getImagePath(`${mediaLanguage}.svg`)" :alt="mediaLanguage">
+         </div>
 
-      <div class="my_rating">       
-         <i v-for="singleStar in voteDivider(mediaVote)" class="fa-solid fa-star"></i>
-         <i v-for="singleStar in (5 - voteDivider(mediaVote))" class="fa-regular fa-star"></i>
-         
+         <div class="my_rating">
+            <i v-for="singleStar in voteDivider(mediaVote)" class="fa-solid fa-star"></i>
+            <i v-for="singleStar in (5 - voteDivider(mediaVote))" class="fa-regular fa-star"></i>
+
+         </div>
       </div>
    </div>
+
+
+   <h4>{{ mediaTitle }}</h4>
 </template>
 
 <style lang="scss" scoped>
 @use '../assets/scss/partials/variables.scss' as*;
-      .filmThumbnail:hover {
-         opacity: 50%;
-      }
-      .filmThumbnail {
-        img {
-          width: 200px;
-          border-radius: 5px ;
-          position: relative;
-        }
-      }
 
-      .filmDetails {
-         position: absolute;
-         top: 100px;
-      }
-      .lang_flag {
-        img {
-          width:20px;
-          border-radius: 2px;
-        }
-      }
-      .my_rating {
-        color: $text_grey;
-      }
-     
-</style>
+.filmThumbnail {
+   position: relative;
+
+   img {
+      width: 200px;
+      border-radius: 5px;
+
+   }
+}
+
+.filmDetails {
+   // display: none;
+   
+   
+   display: none;
+   flex-direction: column;
+   justify-content: space-evenly;
+   align-items: center;
+   position: absolute;
+   top: 0%;
+   bottom: 0;
+   right: 0;
+   left: 0;
+
+   transition: 2s all ease-in-out;
+
+   h4 {
+      text-align: start;
+      padding: 1rem;
+   }
+
+}
+
+.filmThumbnail:hover .filmDetails {
+   display: flex;
+}
+
+.filmThumbnail:hover {
+   #my_poster {
+      filter: brightness(10%);
+      filter: blur(10%);  
+         
+   }
+
+   h4 {
+      color: aliceblue;
+      text-align: center;
+   }
+}
+
+h4 {
+   text-align: center;
+}
+
+
+.lang_flag {
+   img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin: 0.5rem 1rem;
+   }
+}
+
+.my_rating {
+   color: $text_grey;
+   padding: 0.5rem 1rem;
+
+   .fa-solid {
+      color: goldenrod;
+
+   }
+}</style>

@@ -26,7 +26,7 @@ export default {
      axios
       .get("https://api.themoviedb.org/3/discover/movie?api_key=91c455c07b1eb6c90d8fd768159a39c3", {
         params: {
-          query: '',
+          genre_ids: 5,
         }
       })
       .then(response => {
@@ -37,7 +37,7 @@ export default {
       axios
       .get("https://api.themoviedb.org/3/discover/tv?api_key=91c455c07b1eb6c90d8fd768159a39c3", {
         params: {
-          query: '',
+          genre_ids: 3,
         }
       })
       .then(response => {
@@ -55,16 +55,17 @@ export default {
 
   <MainComponent/>
 
-  <FooterComponent/>
+  
 
 </template>
 
 <style lang="scss">
   @use "./assets/scss/main.scss" as *;
-  @use "./assets/scss/partials/variables.scss" as *;
+  @import "./assets/scss/partials/variables.scss" ;
   
   body {
     background-color: rgb(37, 37, 37);
     font-family: Arial, Helvetica, sans-serif;
+    color: $text_grey;
   }
 </style>
