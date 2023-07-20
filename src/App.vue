@@ -26,11 +26,12 @@ export default {
      axios
       .get("https://api.themoviedb.org/3/discover/movie?api_key=91c455c07b1eb6c90d8fd768159a39c3", {
         params: {
-          genre_ids: 5,
+          query:'pt'
+          ,
         }
       })
       .then(response => {
-        store.filmArr = response.data.results;
+        this.store.filmArr = response.data.results;
         console.log(this.store.filmArr);
 
       });
@@ -41,7 +42,7 @@ export default {
         }
       })
       .then(response => {
-        store.tvSeriesArr = response.data.results;
+        this.store.tvSeriesArr = response.data.results;
         console.log(this.store.tvSeriesArr);
 
       })
@@ -54,8 +55,6 @@ export default {
   <HeaderComponent/>
 
   <MainComponent/>
-
-  
 
 </template>
 

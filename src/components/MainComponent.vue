@@ -80,6 +80,18 @@ export default {
                 </div>
           
           </div>
+          <h2>Tv Series</h2>
+           <div class="row " ref="seriesRow" @wheel="onScroll($event)">
+              <div v-for="(singleSerie, i) in store.tvSeriesArr" :key="i" class="my_card">
+                    <CardComponent 
+                      :posterPath="singleSerie.poster_path"
+                      :mediaTitle="singleSerie.name"
+                      :mediaVote="singleSerie.vote_average" 
+                      :mediaLanguage="singleSerie.original_language"/>
+
+                  </div>
+          
+            </div>
       </div>
   </main>
 

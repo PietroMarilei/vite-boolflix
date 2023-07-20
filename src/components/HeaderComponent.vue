@@ -14,6 +14,7 @@ export default {
         .get("https://api.themoviedb.org/3/search/movie?api_key=91c455c07b1eb6c90d8fd768159a39c3", {
           params: {
             query: this.queryInput,
+            language: 'it-IT'
           }
         })
         .then(response => {
@@ -60,7 +61,7 @@ export default {
       <form @submit.prevent="searchFunctionFilm(); searchFunctionTv()" action="">
         <input id="my_input" v-model="queryInput" type="text" placeholder="cerca">
         <select name="" id="">
-          
+
         </select>
         <button  @keydown.enter.prevent="searchFunctionFilm(); searchFunctionTv()">
           <i class="fa-solid fa-magnifying-glass"></i>
