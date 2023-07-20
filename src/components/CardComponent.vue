@@ -37,7 +37,8 @@ export default {
       <!-- lang flag down here -->
       <div class="lang_flag">
          <!-- lang flag here -->
-         <img :src="getImagePath(`${mediaLanguage}.svg`)" :alt="mediaLanguage">
+         <img :src="getImagePath(`${mediaLanguage}.svg`) ?? getImagePath('posternotfound.png')" :alt="mediaLanguage">
+         <!-- ❌📛 not working alternative poster -->
 
       </div>
 
@@ -50,10 +51,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-.my_card {
-      width: 300px;
-      height: 100%;
-      padding: 1rem;
+
       .filmThumbnail {
         img {
           width: 200px;
@@ -65,5 +63,8 @@ export default {
           border-radius: 2px;
         }
       }
-     }
+      .my_rating {
+        color: rgb(228, 228, 228);
+      }
+     
 </style>

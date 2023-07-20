@@ -8,8 +8,7 @@ export default {
   },
   data() {
     return {
-      store,
-      
+      store,   
     }
   },
   methods: {
@@ -70,7 +69,14 @@ export default {
       display: flex;      
       // flex-wrap: wrap;
       overflow-x: auto;
+      // gap: 0.5rem;
     }
-     
+     .my_card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 300px;
+      height: 100%;
+      padding: 1rem;}
      
 </style>

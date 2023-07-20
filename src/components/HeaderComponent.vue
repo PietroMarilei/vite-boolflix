@@ -45,7 +45,9 @@ export default {
 <template>
     
    <header>
-    <h1>Netflix?</h1>
+    <h1>
+      <img src="../assets/img/Netflix-logo.png" alt="">
+    </h1>
     <form @submit.prevent="searchFunctionFilm(); searchFunctionTv()" action="">
       <input v-model="queryInput" type="text">
       <button>submit</button>
@@ -59,7 +61,16 @@ export default {
 
 <style lang="scss" scoped>
     header {
-        padding: 1rem;
+        padding: 0.5rem 1rem;
         text-align: center;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        h1 {
+          img {
+            width: 150px;
+          }
+        }
     }
 </style>

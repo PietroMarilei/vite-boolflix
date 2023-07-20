@@ -64,6 +64,7 @@ export default {
   @use "./assets/scss/partials/variables.scss" as *;
   
   body {
-    background-color: lightslategray;
+    background-color: rgb(37, 37, 37);
+    font-family: Arial, Helvetica, sans-serif;
   }
 </style>
