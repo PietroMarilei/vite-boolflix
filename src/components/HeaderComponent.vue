@@ -59,6 +59,9 @@ export default {
       </div>
       <form @submit.prevent="searchFunctionFilm(); searchFunctionTv()" action="">
         <input id="my_input" v-model="queryInput" type="text" placeholder="cerca">
+        <select name="" id="">
+          
+        </select>
         <button  @keydown.enter.prevent="searchFunctionFilm(); searchFunctionTv()">
           <i class="fa-solid fa-magnifying-glass"></i>
         </button>
@@ -108,7 +111,7 @@ export default {
 
         form {
           display: flex;
-          
+
           button {
             all:unset;
             color: $text_grey;
