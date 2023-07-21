@@ -20,6 +20,7 @@ export default {
       mediaTitle: String,
       mediaVote: Number,
       mediaLanguage: String,
+      genreId: Array,
 
    }
 }
@@ -29,7 +30,7 @@ export default {
    <div class="filmThumbnail">
       <img id="my_poster" :src="posterPath != null ? 'https://image.tmdb.org/t/p/w300/' + posterPath : getImagePath('posternotfound.png')" alt="film poster">
       <div class="filmDetails">
-
+         {{ genreId }}
          <h4>{{ mediaTitle }}</h4>
          <div class="lang_flag">
             <img :src="getImagePath(`${mediaLanguage}.svg`)" :alt="mediaLanguage">
@@ -61,8 +62,6 @@ export default {
 }
 
 .filmDetails {
-   // display: none;
- 
    display: none;
    flex-direction: column;
    justify-content: space-evenly;
