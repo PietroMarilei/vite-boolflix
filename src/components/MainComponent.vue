@@ -35,7 +35,7 @@ export default {
         event.preventDefault(); 
         
         const rowRef = event.currentTarget; 
-        const scrollStep = rowRef.scrollLeft + event.deltaY * 7; 
+        const scrollStep = rowRef.scrollLeft + event.deltaY * 5; 
 
         // Applica la nuova posizione di scorrimento con una transizione fluida
         rowRef.scrollTo({
@@ -54,34 +54,55 @@ export default {
     
     <main>
       <div class="container">
-        <h2>Film</h2>
-        <div class="row" ref="filmRow" @wheel="onScroll($event)">
-          <div v-for="(singleFilm, i) in store.filmArr" :key="i" class="my_card">
-                <CardComponent 
-                  :posterPath="singleFilm.poster_path"
-                  :mediaTitle="singleFilm.title"
-                  :mediaVote="singleFilm.vote_average" 
-                  :mediaLanguage="singleFilm.original_language"/>
-
-                </div>
-            
-          
+        <div v-if="this.store.searchOn == false" class="homepageBoard">
+          <h2>Discover</h2>
+           <div class="row discoverRow" ref="discoverRow" @wheel="onScroll($event)">
+              <div v-for="(singleSerie, i) in store.discoverArr" :key="i" class="my_card">
+                    <CardComponent 
+                      :posterPath="singleSerie.poster_path"
+                      :mediaTitle="singleSerie.original_title"
+                      :mediaVote="singleSerie.vote_average" 
+                      :mediaLanguage="singleSerie.original_language"/>
+  
+                  </div>
+        
+            </div>
+            <!-- popular section here -->
+            <h2>Popular</h2>
+             <div class="row discoverRow" ref="discoverRow" @wheel="onScroll($event)">
+                <div v-for="(singleSerie, i) in store.popularArr" :key="i" class="my_card">
+                      <CardComponent 
+                        :posterPath="singleSerie.poster_path"
+                        :mediaTitle="singleSerie.original_title"
+                        :mediaVote="singleSerie.vote_average" 
+                        :mediaLanguage="singleSerie.original_language"/>
+  
+                    </div>
+        
+              </div>
         </div>
-        <!-- tv series here -->
-        <h2>Tv Series</h2>
-         <div class="row " ref="seriesRow" @wheel="onScroll($event) ">
-            <div v-for="(singleSerie, i) in store.tvSeriesArr" :key="i" class="my_card">
+        <div v-else class="searchBoard">
+          <h1>I tuoi risultati:</h1>
+          <h2 >Film</h2>
+          <div v-if="this.store.filmArr != []" class="row" ref="filmRow" @wheel="onScroll($event)">
+            <div v-for="(singleFilm, i) in store.filmArr" :key="i" class="my_card">
                   <CardComponent 
-                    :posterPath="singleSerie.poster_path"
-                    :mediaTitle="singleSerie.name"
-                    :mediaVote="singleSerie.vote_average" 
-                    :mediaLanguage="singleSerie.original_language"/>
+                    :posterPath="singleFilm.poster_path"
+                    :mediaTitle="singleFilm.title"
+                    :mediaVote="singleFilm.vote_average" 
+                    :mediaLanguage="singleFilm.original_language"
+                    />
 
-                </div>
-          
+                  </div>
+ 
           </div>
-          <h2>Tv Series</h2>
-           <div class="row " ref="seriesRow" @wheel="onScroll($event)">
+
+          <div v-else>
+            <h3>Nothing found ...</h3>
+          </div>
+          <!-- tv series here -->
+          <h2 >Tv Series</h2>
+           <div v-if="this.store.tvSeriesArr.length = 0"  class="row " ref="seriesRow" @wheel="onScroll($event)">
               <div v-for="(singleSerie, i) in store.tvSeriesArr" :key="i" class="my_card">
                     <CardComponent 
                       :posterPath="singleSerie.poster_path"
@@ -92,6 +113,11 @@ export default {
                   </div>
           
             </div>
+            <div v-else>
+              <h3>Nothing found ...</h3>
+            </div>
+        </div>
+        
       </div>
   </main>
 
@@ -100,7 +126,9 @@ export default {
 <style lang="scss" scoped>
 @use "../assets/scss/partials/variables.scss" as *; 
 main {
-  overflow-y: hidden;
+  overflow-y: auto;
+  background-color: rgb(24, 24, 24);
+  padding: 2rem 0;
 }
 
 .container {
@@ -111,23 +139,24 @@ main {
 
 .row {
   margin: 2rem 0;
-  overflow-x: hidden;
+  overflow-x: auto;
   display: flex;      
-      // flex-wrap: wrap;
-      // overflow-x: auto;
       gap: 0.5rem;
 }
 
-h2 {
-  color: aliceblue;
+h1 {
+  padding: 2rem 0;
 }
-    
+
      .my_card {
+      //border: 2px dashed red;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      width: 300px;
+      // width: 300px;
+      
       height: 100%;
+      
       // padding: 1rem;
     }
      
