@@ -20,32 +20,73 @@ export default {
     }
   }, 
   methods: {
-
+    doubleAxios () {
+      axios.all([
+        axios.get("https://api.themoviedb.org/3/genre/movie/list?api_key=91c455c07b1eb6c90d8fd768159a39c3"),
+        axios.get("https://api.themoviedb.org/3/genre/tv/list?api_key=91c455c07b1eb6c90d8fd768159a39c3")
+      ])
+        .then(axios.spread((movieResponse, tvResponse) => {
+          this.store.genresArr = {
+            movieGenres: movieResponse.data,
+            tvGenres: tvResponse.data
+          };
+          console.log(this.store.genresArr);
+        }))
+        
+    }
   },
   created() {
+    //discover call
      axios
       .get("https://api.themoviedb.org/3/discover/movie?api_key=91c455c07b1eb6c90d8fd768159a39c3", {
-        params: {
-          query:'pt'
-          ,
+        params: {         
         }
       })
       .then(response => {
-        this.store.filmArr = response.data.results;
-        console.log(this.store.filmArr);
-
+        this.store.discoverArr = response.data.results;
+        //console.log(this.store.discoverArr);
+        
       });
+      //popular call
       axios
-      .get("https://api.themoviedb.org/3/discover/tv?api_key=91c455c07b1eb6c90d8fd768159a39c3", {
+      .get("https://api.themoviedb.org/3/movie/popular?api_key=91c455c07b1eb6c90d8fd768159a39c3", {
         params: {
-          genre_ids: 3,
+          page:2,
+          //fake a different page
         }
       })
       .then(response => {
-        this.store.tvSeriesArr = response.data.results;
-        console.log(this.store.tvSeriesArr);
-
+        this.store.popularArr = response.data.results;
       })
+      axios.all([
+      axios.get("https://api.themoviedb.org/3/genre/movie/list?api_key=91c455c07b1eb6c90d8fd768159a39c3"),
+      axios.get("https://api.themoviedb.org/3/genre/tv/list?api_key=91c455c07b1eb6c90d8fd768159a39c3")
+    ])
+      .then(axios.spread((movieResponse, tvResponse) => {
+        this.store.genresArr.push(movieResponse.data);
+        this.store.genresArr.push(tvResponse.data);
+
+        console.log(this.store.genresArr);
+      }))
+      //genres call
+      // axios
+      //   .get("https://api.themoviedb.org/3/genre/movie/list?api_key=91c455c07b1eb6c90d8fd768159a39c3", {
+      //     params: {
+      //     }
+      //   })
+      //   .then(response => {
+      //     this.store.genresArr = response.data;
+      //     console.log(this.store.genresArr);
+      //   })
+      // axios
+      // .get("https://api.themoviedb.org/3/genre/tv/list?api_key=91c455c07b1eb6c90d8fd768159a39c3", {
+      //     params: {
+      //     }
+      // })
+      // .then(response => {
+      //     this.store.genresArr = response.data;
+      //     console.log(this.store.genresArr);
+      // }),
   },
 }
 </script>

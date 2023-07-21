@@ -20,7 +20,7 @@ export default {
       mediaTitle: String,
       mediaVote: Number,
       mediaLanguage: String,
-      genreId: Array,
+      
 
    }
 }
