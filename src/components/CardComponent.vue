@@ -27,8 +27,7 @@ export default {
 
 <template>
    <div class="filmThumbnail">
-      <!-- <img :src="'https://image.tmdb.org/t/p/w300/' + posterPath ?? getImagePath('posternotfound.png')" alt=""> -->
-      <img id="my_poster" :src="posterPath != null ? 'https://image.tmdb.org/t/p/w300/' + posterPath : getImagePath('posternotfound.png')" alt="">
+      <img id="my_poster" :src="posterPath != null ? 'https://image.tmdb.org/t/p/w300/' + posterPath : getImagePath('posternotfound.png')" alt="film poster">
       <div class="filmDetails">
 
          <h4>{{ mediaTitle }}</h4>
@@ -63,8 +62,7 @@ export default {
 
 .filmDetails {
    // display: none;
-   
-   
+ 
    display: none;
    flex-direction: column;
    justify-content: space-evenly;
