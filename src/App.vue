@@ -59,14 +59,15 @@ export default {
         this.store.popularArr = response.data.results;
       })
       axios.all([
-      axios.get("https://api.themoviedb.org/3/genre/movie/list?api_key=91c455c07b1eb6c90d8fd768159a39c3"),
-      axios.get("https://api.themoviedb.org/3/genre/tv/list?api_key=91c455c07b1eb6c90d8fd768159a39c3")
-    ])
-      .then(axios.spread((movieResponse, tvResponse) => {
-        this.store.genresArr.push(movieResponse.data);
-        this.store.genresArr.push(tvResponse.data);
-
-        console.log(this.store.genresArr);
+        axios.get("https://api.themoviedb.org/3/genre/movie/list?api_key=91c455c07b1eb6c90d8fd768159a39c3"),
+        axios.get("https://api.themoviedb.org/3/genre/tv/list?api_key=91c455c07b1eb6c90d8fd768159a39c3")
+        ])
+        .then(axios.spread((movieResponse, tvResponse) => {
+          let combinedGenres = [];       
+          combinedGenres.push(...movieResponse.data.genres);
+          combinedGenres.push(...tvResponse.data.genres);
+          this.store.genresArr = combinedGenres;
+          console.log('this.store.genresArr' ,this.store.genresArr);
       }))
       //genres call
       // axios
@@ -87,6 +88,8 @@ export default {
       //     this.store.genresArr = response.data;
       //     console.log(this.store.genresArr);
       // }),
+      console.log(this.store.tvSeriesArr);
+
   },
 }
 </script>

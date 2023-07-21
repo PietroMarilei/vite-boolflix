@@ -7,6 +7,15 @@ export const store = reactive(
         filmArr: [],
         tvSeriesArr:[],
         searchOn: false,
+
+        supportedFlags: [
+            'de',
+            'en',
+            'es',
+            'jp',
+            'it',
+            
+        ],
         
         discoverArr:[],
         popularArr:[],

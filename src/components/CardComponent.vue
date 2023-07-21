@@ -1,7 +1,9 @@
 <script>
+import { store } from '../store';
 export default {
    data() {
       return {
+         store,
 
       }
    },
@@ -30,11 +32,15 @@ export default {
    <div class="filmThumbnail">
       <img id="my_poster" :src="posterPath != null ? 'https://image.tmdb.org/t/p/w300/' + posterPath : getImagePath('posternotfound.png')" alt="film poster">
       <div class="filmDetails">
-         {{ genreId }}
+         
          <h4>{{ mediaTitle }}</h4>
-         <div class="lang_flag">
+         <div v-if="this.store.supportedFlags.includes(mediaLanguage)" class="lang_flag">
             <img :src="getImagePath(`${mediaLanguage}.svg`)" :alt="mediaLanguage">
          </div>
+
+         <div v-else class="lang_flag">
+               <p>{{ mediaLanguage }}</p>
+            </div>
 
          <div class="my_rating">
             <i v-for="singleStar in voteDivider(mediaVote)" class="fa-solid fa-star"></i>
