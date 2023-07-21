@@ -11,7 +11,8 @@ export const store = reactive(
         discoverArr:[],
         popularArr:[],
 
-        onlyFilms
+        genresArr:[],
+        selectedGenID: '',
     },
 )
 
