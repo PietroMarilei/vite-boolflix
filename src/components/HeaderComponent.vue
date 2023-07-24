@@ -14,7 +14,7 @@ export default {
         .get("https://api.themoviedb.org/3/search/movie?api_key=91c455c07b1eb6c90d8fd768159a39c3", {
           params: {
             query: this.queryInput,
-            language: 'it-IT'
+            
           }
         })
         .then(response => {
