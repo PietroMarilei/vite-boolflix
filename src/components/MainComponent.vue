@@ -2,9 +2,11 @@
 import { store } from '../store';
 import axios from "axios"
 import CardComponent from './CardComponent.vue';
+import ButtonComp from './ButtonComp.vue';
 export default {
   components:{
     CardComponent,
+    ButtonComp,
   },
   data() {
     return {
@@ -12,26 +14,7 @@ export default {
     }
   },
   methods: {
-
     onScroll(event) {
-      
-      // const scrollStep = 500; // Numero di pixel di scorrimento per volta
-      // const rowRef = event.currentTarget; // Ottieni il riferimento all'elemento di riga
-
-      // if (event.deltaY > 0) {
-      //   // Scroll verso il basso
-      //   rowRef.scrollBy({
-      //     right: scrollStep,
-      //     left: scrollStep,
-      //     behavior: "smooth",
-      //   });
-      // } else {
-      //   // Scroll verso l'alto
-      //   rowRef.scrollBy({
-      //     left: -scrollStep,
-      //     behavior: "smooth",
-      //   });
-      // }
         event.preventDefault(); 
         
         const rowRef = event.currentTarget; 
@@ -57,34 +40,46 @@ export default {
         <div v-if="this.store.searchOn == false" class="homepageBoard">
           <h2>Discover</h2>
            <div class="row discoverRow" ref="discoverRow" @wheel="onScroll($event)">
-              <div v-for="(singleSerie, i) in store.discoverArr" :key="i" class="my_card">
+              <div v-for="(singleMedia, i) in store.discoverArr" :key="i" class="my_card">
                     <CardComponent 
-                      :posterPath="singleSerie.poster_path"
-                      :mediaTitle="singleSerie.original_title"
-                      :mediaVote="singleSerie.vote_average" 
-                      :mediaLanguage="singleSerie.original_language"/>
+                      :posterPath="singleMedia.poster_path"
+                      :mediaTitle="singleMedia.original_title"
+                      :mediaVote="singleMedia.vote_average" 
+                      :mediaLanguage="singleMedia.original_language"/>
   
                   </div>
-        
+                   <button class="arrow"><i class="fa-solid fa-chevron-right"></i></button>
             </div>
             <!-- popular section here -->
             <h2>Popular</h2>
              <div class="row discoverRow" ref="discoverRow" @wheel="onScroll($event)">
-                <div v-for="(singleSerie, i) in store.popularArr" :key="i" class="my_card">
+                <div v-for="(singleMedia, i) in store.popularArr" :key="i" class="my_card">
                       <CardComponent 
-                        :posterPath="singleSerie.poster_path"
-                        :mediaTitle="singleSerie.original_title"
-                        :mediaVote="singleSerie.vote_average" 
-                        :mediaLanguage="singleSerie.original_language"/>
+                        :posterPath="singleMedia.poster_path"
+                        :mediaTitle="singleMedia.original_title"
+                        :mediaVote="singleMedia.vote_average" 
+                        :mediaLanguage="singleMedia.original_language"/>
   
                     </div>
-        
+                     <button class="arrow"><i class="fa-solid fa-chevron-right"></i></button>
               </div>
+              <h2>Top rated</h2>
+               <div class="row discoverRow" ref="discoverRow" @wheel="onScroll($event)">
+                  <div v-for="(singleMedia, i) in store.topRatedArr" :key="i" class="my_card">
+                        <CardComponent 
+                          :posterPath="singleMedia.poster_path"
+                          :mediaTitle="singleMedia.original_title"
+                          :mediaVote="singleMedia.vote_average" 
+                          :mediaLanguage="singleMedia.original_language"/>  
+                      </div>
+        
+                      <ButtonComp :array2UpdateProp="'topRatedArr'"/>
+                </div>
         </div>
         <div v-else class="searchBoard">
           <h1>I tuoi risultati:</h1>
           <h2 >Film</h2>
-          <div v-if="this.store.filmArr != []" class="row" ref="filmRow" @wheel="onScroll($event)">
+          <div v-if="this.store.tvSeriesArr.length == 0" class="row" ref="filmRow" @wheel="onScroll($event)">
             <div v-for="(singleFilm, i) in store.filmArr" :key="i" class="my_card">
                   <CardComponent 
                     :posterPath="singleFilm.poster_path"
@@ -102,7 +97,7 @@ export default {
           </div>
           <!-- tv series here -->
           <h2 >Tv Series</h2>
-           <div v-if="this.store.tvSeriesArr.length = 0"  class="row " ref="seriesRow" @wheel="onScroll($event)">
+           <div v-if="this.store.tvSeriesArr.length == 0"  class="row " ref="seriesRow" @wheel="onScroll($event)">
               <div v-for="(singleSerie, i) in store.tvSeriesArr" :key="i" class="my_card">
                     <CardComponent 
                       :posterPath="singleSerie.poster_path"
@@ -126,9 +121,10 @@ export default {
 <style lang="scss" scoped>
 @use "../assets/scss/partials/variables.scss" as *; 
 main {
-  overflow-y: auto;
+ //overflow-y: auto;
   background-color: rgb(24, 24, 24);
   padding: 2rem 0;
+  
 }
 
 .container {
@@ -139,23 +135,54 @@ main {
 
 .row {
   margin: 2rem 0;
-  overflow-x: auto;
-  display: flex;      
-      gap: 0.5rem;
+  overflow: hidden;
+  display: flex; 
+  align-items: center;  
+  gap: 0.5rem;
+ 
 }
 
 h1 {
   padding: 2rem 0;
 }
 
+h3 {
+  margin: 2rem 0;
+  margin-left: 1rem;
+}
+
+button{
+  all: unset;
+  cursor: pointer;
+  font-size: 2rem;
+  height: 300px;
+  width: 100px;
+  margin-right: 10px;
+  padding: 0 5px;
+  border-radius: 5px;
+  transition: 0.1s all ease-in-out;
+  position: relative;
+  top: -3px
+}
+
+button:hover {
+  background-color: $dark_grey;
+  //transform: scaleY(110%);
+  font-size: 2.3rem;
+  
+}
+
      .my_card {
+       
       //border: 2px dashed red;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      //display: flex;
+      //flex-direction: column;
+      //justify-content: space-between;
       // width: 300px;
       
-      height: 100%;
+      
+      //height: 100%;
+      //height: 300px;
       
       // padding: 1rem;
     }

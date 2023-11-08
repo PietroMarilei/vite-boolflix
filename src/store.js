@@ -19,9 +19,11 @@ export const store = reactive(
         
         discoverArr:[],
         popularArr:[],
+        topRatedArr: [],
 
         genresArr:[],
         selectedGenID: '',
+        
     },
 )
 

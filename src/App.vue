@@ -5,6 +5,7 @@ import HeaderComponent from './components/HeaderComponent.vue';
 import MainComponent from './components/MainComponent.vue';
 import FooterComponent from './components/FooterComponent.vue';
 
+import LoaderComponent from "./components/LoaderComponent.vue";
 
 
 export default {
@@ -12,10 +13,12 @@ export default {
     HeaderComponent,
     MainComponent,
     FooterComponent,
-  },
+    LoaderComponent
+},
   data(){
     return {
       store,
+      loaderOn: true,
       //like to state management
     }
   }, 
@@ -36,6 +39,11 @@ export default {
     }
   },
   created() {
+    setTimeout(() => {
+      console.log('test');
+      this.loaderOn = false;
+    }, 2000);
+      
     //discover call
      axios
       .get("https://api.themoviedb.org/3/discover/movie?api_key=91c455c07b1eb6c90d8fd768159a39c3", {
@@ -67,38 +75,34 @@ export default {
           combinedGenres.push(...movieResponse.data.genres);
           combinedGenres.push(...tvResponse.data.genres);
           this.store.genresArr = combinedGenres;
-          console.log('this.store.genresArr' ,this.store.genresArr);
+          //console.log('this.store.genresArr' ,this.store.genresArr);
       }))
-      //genres call
-      // axios
-      //   .get("https://api.themoviedb.org/3/genre/movie/list?api_key=91c455c07b1eb6c90d8fd768159a39c3", {
-      //     params: {
-      //     }
-      //   })
-      //   .then(response => {
-      //     this.store.genresArr = response.data;
-      //     console.log(this.store.genresArr);
-      //   })
-      // axios
-      // .get("https://api.themoviedb.org/3/genre/tv/list?api_key=91c455c07b1eb6c90d8fd768159a39c3", {
-      //     params: {
-      //     }
-      // })
-      // .then(response => {
-      //     this.store.genresArr = response.data;
-      //     console.log(this.store.genresArr);
-      // }),
-      console.log(this.store.tvSeriesArr);
+      //top rated call
+      axios
+        .get('https://api.themoviedb.org/3/discover/movie?api_key=91c455c07b1eb6c90d8fd768159a39c3&include_adult=false&include_video=false&language=en-US&page=1&sort_by=vote_average.desc&without_genres=99,10755&vote_count.gte=200', {
+          
+        })
+        .then(response => {
+          this.store.topRatedArr = response.data.results;
+          console.log("this.store.topRatedArr",this.store.topRatedArr);
+        })
+     
+      
 
   },
 }
 </script>
 
 <template>
+  <LoaderComponent v-if="loaderOn"/>
+  <div v-else class="container">
+    <HeaderComponent/>
 
-  <HeaderComponent/>
+    <MainComponent/>
 
-  <MainComponent/>
+    <FooterComponent/>
+  </div>
+  
 
 </template>
 

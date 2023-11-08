@@ -9,8 +9,7 @@ export default {
    },
    methods: {
       getImagePath: function (img) {
-         return new URL(`../assets/img/${img}`, import.meta.url).href
-         // un if che se img è nellárray invece se no restiscuire null e quindi posso usare ??
+         return new URL(`../assets/img/${img}`, import.meta.url).href;
       },
       voteDivider(value) {
          let exitNum = Math.floor((value / 2))
@@ -22,8 +21,6 @@ export default {
       mediaTitle: String,
       mediaVote: Number,
       mediaLanguage: String,
-      
-
    }
 }
 </script>
@@ -49,9 +46,7 @@ export default {
          </div>
       </div>
    </div>
-
-
-   <h4>{{ mediaTitle }}</h4>
+  
 </template>
 
 <style lang="scss" scoped>
@@ -59,26 +54,32 @@ export default {
 
 .filmThumbnail {
    position: relative;
-
+   overflow-y: hidden;
+   
    img {
       width: 200px;
-      border-radius: 5px;
-
+      border-radius: 2px;
    }
 }
 
 .filmDetails {
-   display: none;
+   
+   height: 200px;
+   background-color: rgba(0, 0, 0, 0.677);
+   visibility:hidden;
+   //display: none;
+ 
+
    flex-direction: column;
    justify-content: space-evenly;
    align-items: center;
    position: absolute;
-   top: 0%;
+   top: 100%;
    bottom: 0;
    right: 0;
    left: 0;
 
-   transition: 2s all ease-in-out;
+   transition: 0.3s all ease-in-out;
 
    h4 {
       text-align: start;
@@ -89,13 +90,14 @@ export default {
 
 .filmThumbnail:hover .filmDetails {
    display: flex;
+   height: 100%;
+   top: 0px;
+   visibility: visible;
 }
 
 .filmThumbnail:hover {
    #my_poster {
-      filter: brightness(10%);
-      filter: blur(10%);  
-         
+  
    }
 
    h4 {
